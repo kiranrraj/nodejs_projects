@@ -35,27 +35,13 @@ async function addOneDocument(client, document){
     console.log(`Document inserted with id ${result.insertedId}`);
 }
 
-async function getData(name){
-    const user =  await client.db("userAuth").collection("auth").findOne({name:name});
-
-        if(user == null){
-            return res.status(400).send("Could not find the user");
-        }
+async function getData(data){
+    const user =  await client.db("userAuth").collection("auth").findOne(data);
     return user;
 }
 
 app.use(express.json())
 
-// Will show current username and password
-app.get('/', async (req, res) =>{
-    try{
-        await client.connect();
-        const users =  await client.db("userAuth").collection("auth").find().toArray();
-        res.json(users);
-    }finally{
-        await client.close();
-    }
-});
 
 // Enter username and password to store
 app.post('/users', async (req, res) =>{
@@ -77,9 +63,13 @@ app.post('/users/login', async (req, res) =>{
 
     try{
         await client.connect();
-        let user = await getData(req.body.name);
+        let {email, password} = req.body;
 
-        if(await bcrypt.compare(req.body.password, user.password)){
+        let user = await getData({email:email});
+
+        if(!user){
+            res.send(`User with email id ${email} not found`);
+        } else if(await bcrypt.compare(password, user.password)){
             res.send("User authenticated");
         } else{
             res.send("User authentication failed");
