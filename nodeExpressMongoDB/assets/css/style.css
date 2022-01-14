@@ -1,0 +1,148 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+
+.header{
+    text-align: center;
+    padding: 50px 0px 150px;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-size: 30px;
+}
+
+.main{
+    min-height: 400px;
+    width: 1200px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.btn--create,
+.btn--view{
+    position: absolute;
+    top: -75px;
+    left: 30px;
+    text-decoration: none;
+    padding: 10px 15px;
+    text-align: center;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 15px;
+    background: #333;
+    width: 150px;
+    color: #fff;
+    margin-left: 20px;
+}
+
+.dashboard--table{
+    width: 100%;
+    border: 2px solid #000;
+}
+
+.table--row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.table--header{
+    background: #aaa;
+    color: #fff;
+    text-shadow: #000 1px 1px 1px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.column{
+    width: 200px;
+    display: inline-block;
+    padding: 10px 20px;
+    border-right: 2px solid #000;
+}
+
+.table--row .column:nth-child(6){
+    border-right: none;
+}
+
+.content--action i{
+    width: 50px;
+}
+
+/* Create User Dashboard */
+
+.dashboard--createUser{
+    position: relative;
+    top: 25px;
+    height: 400px;
+    min-width: 500px;
+    padding: 25px 0 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -100px;
+    border: 2px solid #000;
+    border-radius: 10px;
+    box-shadow: 15px 15px 20px -10px #444;
+}
+
+.dashboard--heading{
+    padding: 0px 0 30px;
+    text-align: center;
+}
+
+.createUser--heading{
+    font-size: 30px;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    color: #222;
+    text-shadow: 2px 2px 2px #666;
+}
+
+.createUser--subHeading{
+    font-size: 12px;
+    text-transform:uppercase;
+}
+
+.createUser--form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    width: 100%;
+    padding: 10px 50px;
+}
+
+.form--group{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.btn--group{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.form--btn{
+    padding: 4px 20px;
+    margin: 20px 10px 0px;
+}
