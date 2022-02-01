@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./index_style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <form action="" class="form">
+                <h3 class="form--title">Chatter</h3>
+                <div class="form--userInput">
+                    <label for="username" class="label">User Name</label>
+                    <input type="text" name="username" id="username" class="input">
+                    <label for="useremail" class="label">User Email</label>
+                    <input type="email" name="useremail" id="useremail" class="input">
+                    <label for="chatroom" class="label">Chat Room</label>
+                    <select type="text" name="chatroom" id="chatroom" class="input">
+                        <option value="css">CSS</option>
+                        <option value="js">JavaScript</option>
+                        <option value="react">React</option>
+                        <option value="mongo">Mongo DB</option>
+                        <option value="node">Node</option>
+                    </select>
+                </div>
+                <input type="submit" value="Submit" class="form--btn">
+            </form>
+        </div>
+        <script src="./socket.io/socket.io.js"></script>
+        <script src="./main.js"></script>
+    </div>
+</body>
+</html>
