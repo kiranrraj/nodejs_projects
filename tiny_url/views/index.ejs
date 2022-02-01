@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tiny URL</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="popup">
+        <p class="msg">Error Occured</p>
+      </div>
+      <div class="card">
+        <div class="card--title">Tiny URL</div>
+        <form action="/shortUrls" class="form" method="POST">
+          <label for="url">Enter the URL</label>
+          <input type="text" name="url" id="url" class="url" />
+          <input type="submit" value="Submit" class="btn"/>
+        </form>
+        <table class="table">
+          <thead>
+            <th>Full URL</th>
+            <th>Short URL</th>
+            <th>Clicks</th>
+          </thead>
+          <tbody>
+            <% shortUrls.forEach(shortUrl => { %>
+            <tr>
+              <td>
+                <a class="link" href="<%= shortUrl.full %>" target="_blank"
+                  ><%= shortUrl.full %></a
+                >
+              </td>
+              <td>
+                <a class="link" href="<%= shortUrl.short %>" target="_blank"
+                  ><%= shortUrl.short %></a
+                >
+              </td>
+              <td><%= shortUrl.clicks %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
