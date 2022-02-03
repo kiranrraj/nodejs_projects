@@ -11,6 +11,12 @@ const PORT = process.env.PORT || 3000;
 let server = http.createServer(app);
 let io = socketIO(server);
 
+function getTime(today){
+    let date = `${today.getDate()}/${(today.getMonth()+1)}/${today.getFullYear()}`;
+    let time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
+    return date+' '+time;
+}
+
 // Set static folder
 app.use(express.static('public'));
 
@@ -18,18 +24,21 @@ app.use(express.static('public'));
 io.on('connection', (socket) =>{
     console.log("A new user just connected");
     
-    socket.emit('msgFromServer', {From: 'Bot', Text: "Welcome to the chat", createdAt: new Date().getTime()});
+    // Emitting greetings to client when the client join the room
+    socket.emit('greetingsFromServer', {from: 'Bot', text: "Welcome to the chat", time: getTime(new Date())});
 
-    socket.broadcast.emit('msgFromServer', {From: 'Bot', Text: "New User joined the chat", createdAt: new Date().getTime()});
+    socket.broadcast.emit('connectionMsgFromServer', {from: 'Bot', text: "New User joined the chat", time: getTime(new Date())});
 
     socket.on('disconnect', ()=>{
         console.log("A user disconnected from the server");
-        io.emit('msgFromServer', {From: 'Bot', Text: "A user left the chat", createdAt: new Date().getTime()});
+        io.emit('connectionMsgFromServer', {from: 'Bot', text: "A user left the chat", time: getTime(new Date())});
     });
 
-    socket.on('msgFromClient', function(message){
-        console.log(`Message Received From "${message.From}". Message: "${message.Text}"`);
-    });
+    // Listen for chat message
+    socket.on('chatMessage', (msg) => {
+        console.log(msg);
+        io.emit('message', msg);
+    })
 })
 
 // Set port to listen

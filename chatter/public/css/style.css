@@ -85,7 +85,6 @@ body{
     height: 100vh;
     min-height: 460px;
     overflow: hidden;
-    overflow-x: auto;
 }
 
 .header{
@@ -128,24 +127,25 @@ body{
 
 .main{
     width: 100%;
-    height: calc(100vh - 60px);
+    min-width: 300px;
     min-height: 400px;
     background-color: skyblue;
-    padding: 10px;
-    min-width: 300px;
 }
 
-.messanger{
+.messenger{
     min-height: 400px;
+    position: relative;
 }
 
-.messanger--left{
+.messenger--main{
+    display: flex;
+}
+
+.messenger--left{
     height: 75vh;
     min-height: 320px;
     width: 25%;
     min-width: 120px;
-    margin-left: -10px;
-    margin-top: -10px;
     background: cornflowerblue;
     font-size: 12px;
     border-right: 1px solid #000;
@@ -174,15 +174,28 @@ body{
     text-align: center;
 }
 
+.messenger--right{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    right: 0;
+    width: 75%;
+    height: calc(75vh - 50px);
+    min-width: 220px;
+    overflow-y: auto;
+}
+
 .msgform{
     width: 100vw;
-    margin-left: -10px;
-    height: calc(25vh - 60px);
+    height: calc(25vh - 50px);
     border-top: 1px solid #000;
     background-color: cornflowerblue;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    z-index: 100;
 }
 
 .msgform--input{
@@ -200,4 +213,69 @@ body{
     padding: 6px 10px;
     text-align: center;
     margin-left: 10px;
+}
+
+.right--msg{
+    position: relative;
+    width: calc(100% - 20px);
+    color: #000;
+    background-color: #24C66B;
+    margin: 10px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    line-height: 150%;
+}
+
+.msg--data{
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    letter-spacing: 1.4px;
+    color: #fff;
+    text-shadow: 1px 1px 1px #888;
+}
+
+.msg--meta{
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 15px 0;
+}
+
+.msg--name,
+.msg--date{
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #fff;
+    text-shadow: 2px 2px 4px #000;
+}
+
+.right--serverMsg{
+    position: relative;
+    width: calc(100% - 20px);
+    height: 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+    background-color: rgb(202, 29, 29);
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 12px;
+    letter-spacing: 1.4px;
+    color: #fff;
+    text-shadow: 1px 1px 1px #222;
+}
+
+.serverMsg--meta{
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+}
+
+.serverMsg--name,
+.serverMsg--date{
+    font-size: 12px;
+    padding: 0 10px;
 }
