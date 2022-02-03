@@ -1,7 +1,4 @@
-// To set the path of the public folder 
-const path = require('path');
 const http = require('http');
-const publicPath = path.join(__dirname, '/../public');
 
 // socket.io
 const socketIO = require('socket.io');
@@ -15,7 +12,7 @@ let server = http.createServer(app);
 let io = socketIO(server);
 
 // Set static folder
-app.use(express.static(publicPath));
+app.use(express.static('public'));
 
 // Listen for events
 io.on('connection', (socket) =>{

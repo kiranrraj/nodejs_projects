@@ -1,3 +1,6 @@
+// Get form from message window
+const msgForm = document.querySelector('.msgform');
+
 let socket = io();
 
 socket.on('connect', () =>{
@@ -10,4 +13,11 @@ socket.on('msgFromServer', function(message){
 
 socket.on('disconnect', () =>{
     console.log("Disconnect from the server");
+});
+
+msgForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const userMessage = e.target.elements[0].value;
+    console.log(userMessage);
+    socket.emit('chatMessage', userMessage);
 });

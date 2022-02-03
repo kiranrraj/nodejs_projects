@@ -4,17 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server/server.js"
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "kiran raj r",
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.2",
-    "nodemon": "^2.0.15",
     "socketio": "^1.0.0"
   },
   "devDependencies": {
-    "moment": "^2.29.1"
+    "moment": "^2.29.1",
+    "nodemon": "^2.0.15"
   }
 }
