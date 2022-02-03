@@ -2,6 +2,9 @@
 const msgForm = document.querySelector('.msgform');
 const msgData = document.querySelector('.msg--data');
 const chatDiv = document.querySelector('.messenger--right');
+const roomName = document.querySelector('.top--roomName');
+const userDiv = document.querySelector('.left--bottom');
+
 
 function getTime(today){
     let date = `${today.getDate()}/${(today.getMonth()+1)}/${today.getFullYear()}`;
@@ -31,7 +34,7 @@ function outputMsg(chatMsg){
 }
 
 function outFromServer(msg){
-    let wrapper = createElement('div', 'right--serverMsg', null, chatDiv);
+    let wrapper = createElement('div', 'right--serverMsg', null);
     let wrapperMeta = createElement('div', 'serverMsg--meta', null);
     let wrapperData = createElement('p', 'serverMsg--text', msg.text);
     let wrapperMetaName = createElement('p', 'serverMsg--name', msg.from);
@@ -46,11 +49,28 @@ function outFromServer(msg){
 function autoScroll(){
     chatDiv.scrollTop = chatDiv.scrollHeight
     console.log("Connected to the server");
-    console.log(chatDiv.scrollTop, chatDiv.scrollHeight)
 }
 
+// Get user name, user email and chatroom from uri string
+let {username, useremail, chatroom } = Qs.parse(location.search, {
+    ignoreQueryPrefix: true
+});
+
+// Add room name to web page
+roomName.textContent = chatroom;
+
+// Display users in web page .bottom--users
+function displayUsers(users){
+    users.forEach((user) => {
+        let userList =  createElement('p', 'bottom--users', user);
+        userDiv.appendChild(userList);
+    });
+}
 
 let socket = io();
+
+// Send details to server
+socket.emit('joinRoom', {username, chatroom});
 
 socket.on('connect', () =>{
     console.log("Connected to the server");
@@ -76,6 +96,10 @@ msgForm.addEventListener('submit', e => {
 
     // Get the message from the input
     const chat = e.target.elements[0].value;
+    chat = chat.trim();
+
+    if(!chat) return false;
+
     let userMsg = {
         text: chat,
         from: "user",
@@ -85,6 +109,7 @@ msgForm.addEventListener('submit', e => {
     // Send message to the server
     socket.emit('chatMessage', userMsg);
     e.target.elements[0].value = "";
+    e.target.elements[0].focus();
 });
 
 socket.on('message', msg => {
