@@ -59,19 +59,20 @@ io.on('connection', socket =>{
             users: getUsersInRoom(user.chatroom)
         });
 
+
     });
-
-    console.log("A new user just connected");
-
-    
-    
 
     // Listen for chat message
     socket.on('chatMessage', (msg) => {
-        console.log(msg);
+        // console.log(msg, socket.id);
         const user = getCurrentUser(socket.id);
-        console.log(user);
-        io.emit('message', msg);
+        console.log("From server" ,user, socket.id)
+        let formatMsg = {
+            from: `${user.username}`, 
+            text: msg, 
+            time: getTime(new Date())
+        };
+        io.to(user.chatroom).emit('chatMessage', formatMsg);
     });
 
 
@@ -91,7 +92,7 @@ io.on('connection', socket =>{
             });
 
             // Update users in the room to the page
-            io.to(user.room).emit('usersInRoom', {
+            io.to(user.chatroom).emit('usersInRoom', {
                 chatroom: user.chatroom,
                 users: getUsersInRoom(user.chatroom)
             });

@@ -99,24 +99,18 @@ msgForm.addEventListener('submit', e => {
     e.preventDefault();
 
     // Get the message from the input
-    const chat = e.target.elements[0].value;
+    let chat = e.target.elements[0].value;
     chat = chat.trim();
 
     if(!chat) return false;
 
-    let userMsg = {
-        text: chat,
-        from: "user",
-        time: getTime(new Date())
-    }
-    
     // Send message to the server
-    socket.emit('chatMessage', userMsg);
+    socket.emit('chatMessage', chat);
     e.target.elements[0].value = "";
     e.target.elements[0].focus();
 });
 
-socket.on('message', msg => {
+socket.on('chatMessage', msg => {
     console.log(msg);
     outputMsg(msg);
     autoScroll();
