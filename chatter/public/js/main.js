@@ -3,7 +3,8 @@ const msgForm = document.querySelector('.msgform');
 const msgData = document.querySelector('.msg--data');
 const chatDiv = document.querySelector('.messenger--right');
 const roomName = document.querySelector('.top--roomName');
-const userDiv = document.querySelector('.left--bottom');
+const userDiv = document.querySelector('.bottom--usersBlock');
+const leaveBtn = document.querySelector('.nav--btn');
 
 
 function getTime(today){
@@ -57,12 +58,15 @@ let {username, useremail, chatroom } = Qs.parse(location.search, {
 });
 
 // Add room name to web page
-roomName.textContent = chatroom;
+function updateRoomName(chatroom){
+    roomName.textContent = chatroom;
+}
 
 // Display users in web page .bottom--users
 function displayUsers(users){
+    userDiv.innerHTML = "";
     users.forEach((user) => {
-        let userList =  createElement('p', 'bottom--users', user);
+        let userList =  createElement('p', 'bottom--users', user.username);
         userDiv.appendChild(userList);
     });
 }
@@ -72,9 +76,9 @@ let socket = io();
 // Send details to server
 socket.emit('joinRoom', {username, chatroom});
 
-socket.on('connect', () =>{
-    console.log("Connected to the server");
-    // autoScroll();
+socket.on('usersInRoom', ({ chatroom, users }) => {
+    displayUsers(users);
+    updateRoomName(chatroom)
 });
 
 socket.on('connectionMsgFromServer', function(connectionMsg){
@@ -116,4 +120,13 @@ socket.on('message', msg => {
     console.log(msg);
     outputMsg(msg);
     autoScroll();
+});
+
+leaveBtn.addEventListener('click', () => {
+    const confimLeave = confirm('Do you want to leave the room?');
+    if(confimLeave) {
+        window.location = '../index.html';
+    }else{
+        return false;
+    }
 })

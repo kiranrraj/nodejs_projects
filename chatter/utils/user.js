@@ -1,5 +1,5 @@
 // Initialize user array
-const users = [];
+let users = [];
 
 // Inser user in the user list
 function userList(id, username, chatroom){
@@ -7,6 +7,8 @@ function userList(id, username, chatroom){
     users.push(user);
     return user;
 }
+
+console.log(users);
 
 // Get current user
 function getCurrentUser(id) {

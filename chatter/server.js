@@ -28,9 +28,12 @@ app.use(express.static('public'));
 // Listen for events
 io.on('connection', socket =>{
 
+    // Add the user to the room selected by the user
     socket.on('joinRoom', ({username, chatroom}) => {
 
         const user = userList(socket.id, username, chatroom);
+
+        // User joins the room
         socket.join(user.chatroom);
 
         // Emitting greetings to client when the client join the room
@@ -50,9 +53,17 @@ io.on('connection', socket =>{
             time: getTime(new Date())
         });
 
+        // Send user's list to the chat page.
+        io.to(user.chatroom).emit('usersInRoom', {
+            chatroom: user.chatroom,
+            users: getUsersInRoom(user.chatroom)
+        });
+
     });
 
     console.log("A new user just connected");
+
+    
     
 
     // Listen for chat message
@@ -79,8 +90,8 @@ io.on('connection', socket =>{
                 time: getTime(new Date())
             });
 
-            // Send users in the room to the page
-            io.to(user.room).emit('roomUsers', {
+            // Update users in the room to the page
+            io.to(user.room).emit('usersInRoom', {
                 chatroom: user.chatroom,
                 users: getUsersInRoom(user.chatroom)
             });
