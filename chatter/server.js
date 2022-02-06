@@ -59,7 +59,6 @@ io.on('connection', socket =>{
             users: getUsersInRoom(user.chatroom)
         });
 
-
     });
 
     // Listen for chat message
